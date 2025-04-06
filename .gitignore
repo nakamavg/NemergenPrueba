@@ -1,0 +1,52 @@
+# Archivos de objeto y ejecutables
+*.o
+*.out
+test
+
+# Carpetas de construcción
+objs/
+build/
+bin/
+
+# Archivos de dependencia
+*.d
+
+# Archivos de biblioteca
+*.a
+*.so
+*.dylib
+
+# Archivos de respaldo de editores
+*~
+*.swp
+*.swo
+
+# Archivos temporales
+tmp/
+temp/
+
+# Archivos específicos de VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Archivos específicos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de depuración
+*.dSYM/
+*.su
+*.idb
+*.pdb
+vgcore.*
+
+# Valgrind
+callgrind.out.*
+cachegrind.out.*
+
+# Archivos locales de configuración
+.env
+*.log
