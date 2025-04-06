@@ -19,6 +19,25 @@ void print_m(FILE *fd ,char *message)
 {
     fprintf(fd, "%s", message);
 }
+/**
+ * @brief Verifica si un argumento coincide con un carácter o una opción.
+ *
+ * Esta función compara un argumento de la línea de comandos con un carácter
+ * o una opción específica. Si el argumento coincide con cualquiera de ellos,
+ * la función retorna 1, de lo contrario retorna 0.
+ *
+ * @param argv Argumento de la línea de comandos a verificar.
+ * @param character Carácter a comparar.
+ * @param option Opción a comparar.
+ * @return int Retorna 1 si hay coincidencia, 0 en caso contrario.
+ */
+int check_argument(char *argv, char *character, char *option)
+{
+    if(strcmp(argv, character) == 0 || strcmp(argv, option) == 0)
+        return 1;
+    else
+        return 0;
+}
 
 /**
  * @brief Verifica si el número de argumentos de línea de comandos es válido.
@@ -37,12 +56,33 @@ void print_m(FILE *fd ,char *message)
  * @note Esta función no analiza el contenido o validez de los parámetros,
  *       solo verifica su cantidad.
  */
- int check_args(int argc)
+ int check_args(int argc, char **argv)
 {
     if (argc == 1 || argc > 3)
     {
         print_m(stderr, PARAMS_ERROR);
         return 1;
     }
-    return 0;
+    else if(argc ==2)
+    {
+        if (check_argument(argv[1], CHAR_H, STRING_H) == 1)
+        {
+            print_m(stdout, HELP_MESSAGE);
+            return 2;
+        }
+        else 
+        {
+            print_m(stderr, PARAMS_ERROR);
+            return 1;
+        }
+    }
+    else if(argc == 3)
+    {
+        if (check_argument(argv[1], CHAR_F, STRING_F) == 1)
+        {
+            printf ("El archivo de configuración es: %s\n", argv[2]);
+            return 3;
+        }
+    }
+    return CHAR_INVALID;
 }
