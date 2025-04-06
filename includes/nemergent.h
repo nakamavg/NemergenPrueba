@@ -8,4 +8,5 @@
 
 //srcs/utils.c
 void print_m(FILE *fd ,char *message);
+int check_args(int argc);
 # endif
