@@ -56,33 +56,87 @@ int check_argument(char *argv, char *character, char *option)
  * @note Esta función no analiza el contenido o validez de los parámetros,
  *       solo verifica su cantidad.
  */
- int check_args(int argc, char **argv)
+
+ #include <string.h>
+ #include <stdbool.h>
+ 
+ /**
+  * Valida si un archivo tiene extensión .txt.
+  * @param filename Nombre del archivo (puede incluir ruta).
+  * @return true si la extensión es .txt, false en caso contrario.
+  */
+ bool validate_file_extension(const char *filename) {
+     // Buscar el último '.' en el nombre del archivo
+     const char *dot = strrchr(filename, '.');
+     
+     // Casos inválidos:
+     // - No hay punto
+     // - El punto está al final (ej: "archivo.")
+     // - La extensión no es "txt" (case-sensitive)
+     if (!dot || dot == filename || strcmp(dot + 1, "txt") != 0) {
+         return false;
+     }
+     return true;
+ }
+
+/**
+ * @brief Verifica y procesa los argumentos de línea de comandos.
+ *
+ * Esta función valida el número y tipo de argumentos recibidos según
+ * las siguientes reglas:
+ * - Sin argumentos o más de 2: Error
+ * - [-h/--help]: Muestra mensaje de ayuda
+ * - [-f/--file archivo.txt]: Procesa el archivo de configuración
+ *
+ * @param argc Número de argumentos de línea de comandos.
+ * @param argv Vector de strings con los argumentos.
+ * @return int Código de resultado:
+ *         1: Error en parámetros
+ *         2: Comando de ayuda procesado correctamente
+ *         3: Comando de archivo procesado correctamente
+ *         CHAR_INVALID: Opción de comando no reconocida
+ */
+int check_args(int argc, char **argv)
 {
+    // Verificar número de argumentos
     if (argc == 1 || argc > 3)
     {
         print_m(stderr, PARAMS_ERROR);
         return 1;
     }
-    else if(argc ==2)
+
+    // Caso: Un solo argumento (-h/--help)
+    if (argc == 2)
     {
-        if (check_argument(argv[1], CHAR_H, STRING_H) == 1)
+        if (check_argument(argv[1], CHAR_H, STRING_H))
         {
             print_m(stdout, HELP_MESSAGE);
-            return 2;
-        }
-        else 
-        {
-            print_m(stderr, PARAMS_ERROR);
             return 1;
         }
+        
+        print_m(stderr, PARAMS_ERROR);
+        return 1;
     }
-    else if(argc == 3)
+
+    // Caso: Dos argumentos (-f/--file filename)
+    // Primero validamos el formato del archivo
+    if (!validate_file_extension(argv[2]))
     {
-        if (check_argument(argv[1], CHAR_F, STRING_F) == 1)
-        {
-            printf ("El archivo de configuración es: %s\n", argv[2]);
-            return 3;
-        }
+        print_m(stderr, NAME_ERROR);
+        return 1;
     }
-    return CHAR_INVALID;
+    
+    // Luego validamos que sea la opción correcta
+    if (check_argument(argv[1], CHAR_F, STRING_F))
+    {
+        // Usar print_m para mantener consistencia en vez de printf
+        char message[100];
+        sprintf(message, "El archivo de configuración es: %s\n", argv[2]);
+        print_m(stdout, message);
+        return 2;
+    }
+
+    // Si llegamos aquí, la opción de comando no es válida
+    print_m(stderr, PARAMS_ERROR);
+    return 1;
 }
