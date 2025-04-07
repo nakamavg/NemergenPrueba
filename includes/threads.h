@@ -3,6 +3,7 @@
 
 #include "linked_list.h"
 #include <pthread.h>
+#include <stdlib.h>
 #include "numbers.h"
 
 typedef struct {

@@ -2,15 +2,6 @@
 
 /**
  * @brief Lee y valida la configuración desde un archivo
- *
- * Esta función analiza un archivo de configuración para extraer los parámetros requeridos.
- * Solo acepta líneas con configuraciones de "numbers_per_thread" y "thread_num",
- * y verifica que no haya contenido inesperado en el archivo.
- * Las líneas vacías y líneas que solo contienen espacios en blanco son ignoradas.
- *
- * @param filename Ruta al archivo de configuración a leer
- * @return Estructura Config que contiene los ajustes analizados y el estado de validación
- *         El campo 'valid' será 0 si ocurrió algún error de análisis o faltan valores requeridos
  */
 Config read_config(const char *filename) {
     Config config = {0, 0, 0};

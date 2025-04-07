@@ -5,6 +5,7 @@
         "test.h": "c",
         "numbers.h": "c",
         "threads.h": "c",
-        "linked_list.h": "c"
+        "linked_list.h": "c",
+        "signals.h": "c"
     }
 }

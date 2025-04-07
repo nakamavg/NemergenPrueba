@@ -1,10 +1,11 @@
 // linked_list.c
 #include "linked_list.h"
 #include "nemergent.h"
-
 #include <stdlib.h>
 
-// lists.c
+/**
+ * @brief Crea un nuevo nodo para una lista enlazada
+ */
 Node* create_node(int data) {
     Node *node = malloc(sizeof(Node));
     node->data = data;
@@ -13,6 +14,9 @@ Node* create_node(int data) {
     return node;
 }
 
+/**
+ * @brief Añade un nuevo nodo al final de una lista enlazada
+ */
 Node *add_node(Node *head, int data)
 {
     Node *new_node = create_node(data);
@@ -33,30 +37,42 @@ Node *add_node(Node *head, int data)
     return head;
 }
 
-// lists.c
+/**
+ * @brief Libera toda la memoria utilizada por una lista enlazada
+ */
 void free_list(Node **list) {
     Node *current = *list;
     while (current != NULL) {
         Node *temp = current;
         current = current->next;
-        pthread_mutex_destroy(&temp->mutex); // Destruir mutex del nodo
+        pthread_mutex_destroy(&temp->mutex);
         free(temp);
     }
     *list = NULL;
 }
 
+/**
+ * @brief Imprime todos los elementos de una lista enlazada
+ */
 void print_list(Node *head)
 {
     Node *current = head;
+    bool first = true;
     while (current != NULL)
     {
-        printf("%d\n", current->data);
+        if(!first)
+            printf(", ");
+        else
+            first = false;
+        printf("%d", current->data);
         current = current->next;
     }
-
 }
 
-void safe_insert(Node * *list, int data)
+/**
+ * @brief Inserta un elemento en la lista de forma segura (thread-safe)
+ */
+void safe_insert(Node **list, int data)
 {
     Node *new_node = create_node(data);
     if (!new_node)
