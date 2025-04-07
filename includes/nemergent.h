@@ -5,6 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 #include  "stringsmessages.h"
+#include "linked_list.h"
 
 #define STDOUT 1
 #define STDERR 2

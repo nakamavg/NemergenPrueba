@@ -1,4 +1,4 @@
-#include "../includes/nemergent.h"
+#include "nemergent.h"
 
 /**
  * @brief Lee y valida la configuración desde un archivo
