@@ -3,6 +3,8 @@
         "stdio.h": "c",
         "nemergent.h": "c",
         "test.h": "c",
-        "numbers.h": "c"
+        "numbers.h": "c",
+        "threads.h": "c",
+        "linked_list.h": "c"
     }
 }
