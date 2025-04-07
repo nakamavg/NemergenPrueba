@@ -2,6 +2,7 @@
     "files.associations": {
         "stdio.h": "c",
         "nemergent.h": "c",
-        "test.h": "c"
+        "test.h": "c",
+        "numbers.h": "c"
     }
 }

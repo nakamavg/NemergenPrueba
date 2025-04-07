@@ -10,4 +10,6 @@ void test_read_config_file_valid();
 void test_without_txt_extension();
 void test_create_list();
 void test_add_node();
+void test_print_list();
+void test_generate_unique_numbers();
 #endif

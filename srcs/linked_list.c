@@ -1,5 +1,7 @@
 // linked_list.c
 #include "linked_list.h"
+#include "nemergent.h"
+
 #include <stdlib.h>
 
 Node* create_node(int data) {
@@ -35,5 +37,13 @@ void free_list(Node *head) {
         next_node = current->next;
         free(current);
         current = next_node;
+    }
+}
+
+void print_list(Node *head) {
+    Node *current = head;
+    while (current != NULL) {
+        printf("%d\n",current->data);
+        current = current->next;
     }
 }
